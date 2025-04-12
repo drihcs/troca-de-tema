@@ -1,0 +1,96 @@
+/* Estilo do botão switch */
+.toggle-label {
+    display: block;
+    width: 60px;
+    height: 30px;
+    background-color: var(--toggle-bg);
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+    box-shadow: inset 0 0 5px var(--shadow);
+    transition: background-color var(--transition-time), box-shadow var(--transition-time);
+}
+
+/* Bolinha dentro do botão switch */
+.toggle-label::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--toggle-circle);
+    border-radius: 50%;
+    transition: transform var(--transition-time), background-color var(--transition-time);
+}
+
+/* Efeito de animação quando o toggle está ativado */
+#theme-toggle:checked + .theme-toggle-container .toggle-label {
+    background-color: var(--toggle-active);
+    animation: glow 0.5s ease;
+}
+
+#theme-toggle:checked + .theme-toggle-container .toggle-label::after {
+    transform: translateX(30px);
+    animation: slideBall 0.4s ease forwards;
+}
+
+/* Animação da bolinha (movimento para o lado) */
+@keyframes slideBall {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(30px);
+    }
+}
+
+/* Animação de brilho do switch quando ativado */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 0 var(--toggle-active);
+    }
+    50% {
+        box-shadow: 0 0 10px var(--toggle-active);
+    }
+    100% {
+        box-shadow: 0 0 0 var(--toggle-active);
+    }
+}
+
+/* Efeito de "pop" quando a bolinha aparece */
+@keyframes popIn {
+    0% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Ocultar o checkbox */
+#theme-toggle {
+    display: none;
+}
+
+/* Container fixo do botão switch */
+.theme-toggle-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+}
+
+/* Ajustes para quando o tema estiver ativado */
+#theme-toggle:checked~.page {
+    --bg-color: #212529;
+    --text-color: #f8f9fa;
+    --toggle-bg: #495057;
+    --toggle-border: #6c757d;
+}
+
+#theme-toggle:checked~.content {
+    color: var(--text-color);
+}
